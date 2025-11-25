@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-light-gray text-black antialiased;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ADD THIS NEW KEYFRAME FOR THE REVERSE SCROLL */
+@keyframes scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+/* UPDATE THIS CLASS to use the new animation */
+.animate-scroll-slow {
+  animation: scroll-reverse 60s linear infinite;
+}
+
+/* ADD THIS NEW CLASS for the second scroller */
+.animate-scroll-slow {
+  /* animation: scroll 60s linear infinite; */
+}
+
+/* Update this to a group hover to pause both */
+.group:hover .animate-scroll,
+.group:hover .animate-scroll-slow {
+  animation-play-state: paused;
+}
+
+/* --- Case Study Card Stack Animations --- */
+@keyframes card-stack-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-stack {
+  animation: card-stack-in 0.5s ease-out forwards;
+}
