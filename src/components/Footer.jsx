@@ -104,7 +104,7 @@ const Footer = () => {
                 <h4 className="font-display font-semibold text-sm uppercase text-white">Get in touch</h4>
                 <a href="https://www.linkedin.com/in/gautam-singh-manral/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                   <img 
-                    src="././public/images/GautamProfile.jpg"
+                    src="././public/GautamProfile.jpg"
                     alt="GautamProfile"
                     className="w-10 h-10 rounded-full"
                   />

@@ -12,7 +12,7 @@ const Navbar = () => {
         <a href="/" className="flex items-center gap-2 cursor-pointer">
           {/* Replaced the SVG with your uploaded 'outmate' logo */}
           <img 
-            src="././public/images/outmate.png" 
+            src="././public/outmate.png" 
             alt="Outmate Logo" 
             className="h-[150px] w-auto" 
           />
