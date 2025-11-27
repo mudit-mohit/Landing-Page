@@ -126,7 +126,7 @@ const SystemDesignSection = () => {
           {/* --- RIGHT COLUMN: The Diagram --- */}
           <div className="w-full h-full flex items-center justify-center">
             <img 
-              src="././public/outmate_system_design.png" 
+              src="./outmate_system_design.png" 
               alt="System design diagram"
               className="w-full h-auto object-contain"
             />
