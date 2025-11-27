@@ -3,33 +3,33 @@ import React from 'react';
 // --- Data for the cards (using clean text logos as requested) ---
 const caseStudiesData = [
   {
-    logoText: "Prosperly",
+    logoText: "Prosprly",
     logoColor: "text-blue-600",
     title: "How we helped Prosperly get 649 Sales Opportunities in 7 Months - resulting in 153 booked meetings",
     link: "#",
-    quote: "“From the first full month we worked with you, everything changed. We started receiving interested leads consistently.. The way you scraped the lists is genius, every email feels personal and makes it easy for us to start conversations, book demos, and close deals. We couldn’t be happier with the results.”",
+    quote: "“Outmate quickly felt like part of our sales team. It helped us reach the right people faster, so our reps stopped guessing who to call and spent their time in real conversations that actually moved deals forward.”",
     avatarUrl: "https://framerusercontent.com/images/XFhCK9TBR6GJ4hzVJjnpp6XNaAY.jpeg",
-    author: "Adam White",
+    author: "Mark White",
     authorTitle: "Founder"
   },
   {
-    logoText: "SalesDraft",
+    logoText: "SaleDraft",
     logoColor: "text-gray-800",
     title: "How We Helped SalesDraft Get 190 Sales Opportunities in 5 Months",
     link: "#",
-    quote: "“Thursday to Friday this week, we had like 16 to 17 leads come in. My calendar is packed right now!”",
+    quote: "“With Outmate, our pipeline finally feels steady. In one quarter we went from random leads to a regular stream of good meetings on our calendars, and prospects often say the messages sound personal and relevant, not automated.”",
     avatarUrl: "https://framerusercontent.com/images/es32ENd9eNd9Lbk5qDilSrZXmg.jpeg",
-    author: "Ethan Whitehead",
+    author: "Jhon Whitehead",
     authorTitle: "CEO"
   },
   {
-    logoText: "Besolo",
+    logoText: "Beslo",
     logoColor: "text-indigo-600",
     title: "How We Helped Besolo Generate 139 Sales Opportunities in 5 Months",
     link: "#",
-    quote: "“Your team's professionalism is just an incredible resource and I think the learnings that we got and the customers that we got are going to be priceless moving forwards”",
+    quote: "“Working with Outmate changed how our team sells. It takes care of the busy work like finding prospects and sending the first emails, so our sellers can focus on demos and closing, and we were able to reach new markets without adding more SDRs.”",
     avatarUrl: "https://framerusercontent.com/images/KNmsWHnpztNfi6nJYJ0Xj5IUFOE.jpeg",
-    author: "Mark Jackson",
+    author: "Harry Jackson",
     authorTitle: "CEO"
   }
 ];
@@ -67,16 +67,7 @@ const CaseStudyCard = ({ card, index }) => (
       </h3>
 
       {/* 4. "Read Case Study" Link */}
-      <div className="flex">
-        <div className="group flex items-center gap-2 border border-[#E1E2E3] bg-white rounded-full px-4 py-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300">
-          <span className="font-mono text-[11px] tracking-widest uppercase text-[#4D4D4D] font-medium">
-            Read Case Study
-          </span>
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="w-3 h-3 text-gray-400 group-hover:text-black transition-colors">
-            <path d="M 7.595 13 L 6.427 11.832 L 9.748 8.511 L 10.526 7.985 L 10.435 7.71 L 9.496 7.824 L 1 7.824 L 1 6.176 L 9.496 6.176 L 10.435 6.29 L 10.526 6.015 L 9.748 5.489 L 6.427 2.168 L 7.595 1 L 13 6.405 L 13 7.595 Z" fill="currentColor"/>
-          </svg>
-        </div>
-      </div>
+      
 
       {/* 5. Testimonial Box */}
       <div className="relative bg-[#f4f4f4] rounded-lg p-6 mt-4 border border-[#E1E2E3]">

@@ -1,6 +1,13 @@
 import React from 'react';
 
 const Hero = () => {
+  const handleScrollToCalendar = () => {
+    const element = document.getElementById('BookingScheduler');
+    if (element) {
+      // Will scroll smoothly to the top of the next section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     // Section wrapper with padding to clear the fixed navbar
     <section className="w-full max-w-[1280px] mx-auto  pt-28 pb-10">
@@ -74,13 +81,13 @@ const Hero = () => {
 
           {/* --- 4. Button --- */}
           <a 
-            href="https://apply.prospeqt.co/" 
+            onClick={handleScrollToCalendar}  
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
           >
             <span className="font-display font-medium text-lg">
-              Request a call
+              Book A Strategy Call
             </span>
             {/* Arrow Icon */}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity">

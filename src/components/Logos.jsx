@@ -2,11 +2,11 @@ import React from 'react';
 
 // --- Clean text logos ---
 const logosRow1 = [
-  "QuantumLeap", "Zenith AI", "Apex Systems", "Nova Tech", "Synergy Inc."
+  "Alpha Corp", "Beta Solutions", "Gamma Systems", "Delta Technologies", "Omega Labs"
 ];
 
 const logosRow2 = [
-  "Momentum", "Orbit Solutions", "Pinnacle", "Aura Dynamics", "Evolve"
+  "Momentm", "Orbit Tech", "Pinnacle Solutions", "AuraTeq", "Evolve Tech"
 ];
 
 // Duplicate the arrays for the infinite scroll effect

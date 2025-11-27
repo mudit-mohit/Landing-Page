@@ -87,7 +87,7 @@ export default function BookingScheduler({
 
   return (
     <section
-      id="why-us"
+      id="BookingScheduler"
       className="w-full max-w-[1280px] mx-auto px-4 pt-16 pb-20 border-t border-[#E1E2E3]"
     >
        <div className="flex flex-col items-center gap-10 mb-12">
