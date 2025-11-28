@@ -35,10 +35,6 @@ const faqData = [
     answer: "You have 100% visibility. We build everything inside your own dedicated tech stack (your own Clay, Instantly, and CRM accounts). You own all the data, all the systems, and all the assets from day one. We just build and operate it for you."
   },
   {
-    question: "If I choose to work with your team, what kind of engagement, support and communication can I expect?",
-    answer: "You get a dedicated Slack channel with our team for real-time communication. We hold weekly strategy calls to review performance, analyze market feedback, and plan new campaign 'angles'. We become an extension of your internal team."
-  },
-  {
     question: "What results should we expect in the first 90 days?",
     answer: "Month 1 is 'The Foundation'—we build your infrastructure, map your TAM, and launch initial test campaigns. Months 2 and 3 are for 'Optimization & Scaling'—we analyze winning segments, double down on what works, and build a predictable pipeline of qualified meetings."
   },
