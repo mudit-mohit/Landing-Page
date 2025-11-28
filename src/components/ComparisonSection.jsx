@@ -112,7 +112,7 @@ const ComparisonSection = () => {
           {/* Col 2: outmate.co */}
           <div className="flex flex-col bg-white border border-[#E1E2E3] rounded-2xl overflow-hidden shadow-sm">
             <div className="h-20 p-4 flex items-center">
-              <h4 className="font-display font-semibold text-lg text-black">outmate.co</h4>
+              <h4 className="font-display font-semibold text-lg text-black">outmate.ai</h4>
             </div>
             {outmateData.map((item, index) => (
               <div key={index} className="flex items-start gap-3 h-20 p-4 border-t border-[#E1E2E3]">

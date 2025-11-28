@@ -84,7 +84,7 @@ const Hero = () => {
             onClick={handleScrollToCalendar}  
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="mt-8 group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <span className="font-display font-medium text-lg">
               Book A Strategy Call

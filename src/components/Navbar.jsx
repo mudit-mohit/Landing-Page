@@ -30,7 +30,7 @@ const Navbar = () => {
             onClick={handleScrollToCalendar} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white font-medium mb-2 py-2 px-4 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white font-medium mb-2 py-2 px-4 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
         >
             Let's connect
         </a>

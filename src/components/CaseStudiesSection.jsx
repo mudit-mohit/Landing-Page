@@ -8,7 +8,7 @@ const caseStudiesData = [
     title: "How we helped Prosperly get 649 Sales Opportunities in 7 Months - resulting in 153 booked meetings",
     link: "#",
     quote: "“Outmate quickly felt like part of our sales team. It helped us reach the right people faster, so our reps stopped guessing who to call and spent their time in real conversations that actually moved deals forward.”",
-    avatarUrl: "https://framerusercontent.com/images/XFhCK9TBR6GJ4hzVJjnpp6XNaAY.jpeg",
+    avatarUrl: "./profile1.jpg",
     author: "Mark White",
     authorTitle: "Founder"
   },
@@ -18,7 +18,7 @@ const caseStudiesData = [
     title: "How We Helped SalesDraft Get 190 Sales Opportunities in 5 Months",
     link: "#",
     quote: "“With Outmate, our pipeline finally feels steady. In one quarter we went from random leads to a regular stream of good meetings on our calendars, and prospects often say the messages sound personal and relevant, not automated.”",
-    avatarUrl: "https://framerusercontent.com/images/es32ENd9eNd9Lbk5qDilSrZXmg.jpeg",
+    avatarUrl: "./profile2.jpg",
     author: "Jhon Whitehead",
     authorTitle: "CEO"
   },
@@ -28,7 +28,7 @@ const caseStudiesData = [
     title: "How We Helped Besolo Generate 139 Sales Opportunities in 5 Months",
     link: "#",
     quote: "“Working with Outmate changed how our team sells. It takes care of the busy work like finding prospects and sending the first emails, so our sellers can focus on demos and closing, and we were able to reach new markets without adding more SDRs.”",
-    avatarUrl: "https://framerusercontent.com/images/KNmsWHnpztNfi6nJYJ0Xj5IUFOE.jpeg",
+    avatarUrl: "./profile3.jpg",
     author: "Harry Jackson",
     authorTitle: "CEO"
   }
@@ -36,6 +36,7 @@ const caseStudiesData = [
 
 // --- Sub-component for a single card ---
 const CaseStudyCard = ({ card, index }) => (
+
   <a 
     href={card.link}
     target="_blank"
@@ -100,6 +101,13 @@ const CaseStudyCard = ({ card, index }) => (
 
 // --- Main Section Component ---
 const CaseStudiesSection = () => {
+  const handleScrollToCalendar = () => {
+    const element = document.getElementById('BookingScheduler');
+    if (element) {
+      // Will scroll smoothly to the top of the next section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <section 
       id="case-studies" 
@@ -143,10 +151,10 @@ const CaseStudiesSection = () => {
       </div>
       <div className="flex justify-center mt-12">
         <a 
-          href="https://apply.outmate.co/" 
+          onClick={handleScrollToCalendar} 
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
+          className="group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
         >
           <span className="font-display font-medium text-lg">
             Request a call

@@ -14,6 +14,13 @@ const foundationSteps = [
 ];
 
 const FoundationSection = () => {
+  const handleScrollToCalendar = () => {
+    const element = document.getElementById('BookingScheduler');
+    if (element) {
+      // Will scroll smoothly to the top of the next section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <section 
       id="foundation" 
@@ -51,10 +58,10 @@ const FoundationSection = () => {
 
           {/* Button (Same as Hero) */}
           <a 
-            href="https://apply.prospeqt.co/" 
+            onClick={handleScrollToCalendar} 
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="mt-4 group flex items-center gap-3 bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <span className="font-display font-medium text-lg">
               Request a call
