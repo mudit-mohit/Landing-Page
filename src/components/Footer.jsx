@@ -54,7 +54,7 @@ const Footer = () => {
                 We’ll map your goals, challenges, and ideate your TAM — so you leave with a clear picture of the channel’s potential and the next steps to turn it into a predictable revenue engine.
               </p>
 
-              <form className="flex flex-col sm:flex-row gap-2">
+              {/* <form className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -66,7 +66,7 @@ const Footer = () => {
                 >
                   Submit
                 </button>
-              </form>
+              </form> */}
 
             </div>
 
