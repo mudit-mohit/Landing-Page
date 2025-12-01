@@ -19,8 +19,8 @@ export default function BookingScheduler({
   // ==========================================
   // We are using the direct key to prevent "ReferenceError: process is not defined" crashes.
   // This is safe for client-side API keys like Cal.com.
-  const API_KEY = "cal_live_6c0f74afc7a51aeedbe50030d2c29698";
-  const EVENT_TYPE_ID = 4037867;
+  const API_KEY = "cal_live_d3f6bf03181b8af83ff915833c802fb3";
+  const EVENT_TYPE_ID = 3898878;
 
   /* // OPTIONAL: If you want to use .env later, uncomment the lines below 
   // based on your build tool (Vite vs Create React App).
