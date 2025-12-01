@@ -221,7 +221,7 @@ export default function BookingScheduler({
   }
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
+    <section id ='BookingScheduler' className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
 
       {/* HEADER SECTION */}
       <div className="flex flex-col items-center gap-4 mb-12 text-center">
