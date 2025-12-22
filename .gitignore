@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+full_project_context.txt
+generate_context.py
 
 # Editor directories and files
 .vscode/*
