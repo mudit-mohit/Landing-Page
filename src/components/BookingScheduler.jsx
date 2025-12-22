@@ -19,8 +19,8 @@ export default function BookingScheduler({
   // ==========================================
   // We are using the direct key to prevent "ReferenceError: process is not defined" crashes.
   // This is safe for client-side API keys like Cal.com.
-  const API_KEY = "cal_live_d3f6bf03181b8af83ff915833c802fb3";
-  const EVENT_TYPE_ID = 3898878;
+  const API_KEY = "cal_live_aa482560d7ce3d6237dc282711f8bf5e";
+  const EVENT_TYPE_ID = 4230487;
 
   /* // OPTIONAL: If you want to use .env later, uncomment the lines below 
   // based on your build tool (Vite vs Create React App).
@@ -54,20 +54,30 @@ export default function BookingScheduler({
   const [errorMsg, setErrorMsg] = useState(""); // UI Error message (no alerts)
 
   // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
+ // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
+  // ... inside your component
+
+  // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
   useEffect(() => {
     async function fetchAvailability() {
       if (!selectedDate) return;
 
+      console.log("--- DEBUG: Fetching Availability ---");
       setLoading(true);
       setAvailableSlots([]);
       setSelectedSlot(null);
       setErrorMsg("");
 
-      // Calculate Start/End in UTC correctly for the API query
+      // 1. Create a "Day Window" in UTC that definitely covers your local day
       const start = new Date(selectedDate);
+      start.setDate(start.getDate() - 1); 
       start.setHours(0, 0, 0, 0);
+      
       const end = new Date(selectedDate);
-      end.setHours(23, 59, 59, 999);
+      end.setDate(end.getDate() + 2); 
+      end.setHours(0, 0, 0, 0);
+
+      console.log("Requesting slots from:", start.toISOString(), "to:", end.toISOString());
 
       try {
         const query = new URLSearchParams({
@@ -77,27 +87,41 @@ export default function BookingScheduler({
           endTime: end.toISOString(),
         });
 
-        const res = await fetch(`https://api.cal.com/v1/slots?${query}`);
-        const data = await res.json();
+        const url = `https://api.cal.com/v1/slots?${query}`;
+        console.log("Fetching URL:", url);
 
-        // Generate local date key (YYYY-MM-DD)
-        const year = selectedDate.getFullYear();
-        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-        const day = String(selectedDate.getDate()).padStart(2, '0');
-        const dateKey = `${year}-${month}-${day}`;
-
-        // Look for the key in the response
-        let slots = data.slots?.[dateKey] || [];
-
-        // Fallback filtering if direct key match fails due to timezone shift in response
-        if (slots.length === 0) {
-          const allSlots = Object.values(data.slots || {}).flat();
-          slots = allSlots.filter(s => {
-            const slotDate = new Date(s.time);
-            return slotDate.getDate() === selectedDate.getDate();
-          });
+        const res = await fetch(url);
+        
+        if (!res.ok) {
+           console.error("API Error Response:", res.status, res.statusText);
+           throw new Error(`API returned ${res.status}`);
         }
 
+        const data = await res.json();
+        console.log("Raw API Response:", data);
+
+        // Check if slots exist at all
+        if (!data.slots || Object.keys(data.slots).length === 0) {
+            console.warn("⚠️ Cal.com returned NO slots for this range. Check Event Type availability settings.");
+            setAvailableSlots([]);
+            setLoading(false);
+            return;
+        }
+
+        // 2. Filter correctly using Local Date String matching
+        const allSlots = Object.values(data.slots).flat();
+        console.log("Flattened Slots (before filter):", allSlots);
+
+        const targetDateString = selectedDate.toDateString(); 
+        console.log("Filtering for Local Date:", targetDateString);
+
+        const slots = allSlots.filter(slot => {
+          const slotDate = new Date(slot.time);
+          const match = slotDate.toDateString() === targetDateString;
+          return match;
+        });
+
+        console.log("Final Available Slots:", slots);
         setAvailableSlots(slots);
 
       } catch (error) {
@@ -109,8 +133,9 @@ export default function BookingScheduler({
     }
 
     fetchAvailability();
-    onDateSelect(selectedDate);
   }, [selectedDate]);
+// ... rest of the file
+
 
   // --- 2. SUBMIT BOOKING ---
   async function handleBooking() {
@@ -221,7 +246,7 @@ export default function BookingScheduler({
   }
 
   return (
-    <section id ='BookingScheduler' className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
+    <section id='BookingScheduler' className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
 
       {/* HEADER SECTION */}
       <div className="flex flex-col items-center gap-4 mb-12 text-center">
