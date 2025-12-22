@@ -1,0 +1,44 @@
+name: Deploy React App to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # Change this to 'master' if your main branch is named master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Download your code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Build the Project (Creates the 'dist' folder)
+      - name: Build Project
+        run: npm run build
+
+      # 5. Upload 'dist' folder to Hostinger
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/          # The folder Vite builds to
+          server-dir: ./public_html/  # The folder Hostinger serves from
+          protocol: ftp
+          port: 21
+          # Dangerous: This deletes old files on the server to keep it clean. 
+          # Remove this line if you have other files on your server you want to keep.
+          dangerous-clean-slate: true

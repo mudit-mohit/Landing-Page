@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+*(By putting this in the `public` folder, Vite will automatically copy it to the build folder during deployment.)*
+
+### Step 5: Trigger the Deployment
+
+1.  Save all your files.
+2.  Commit and push the new workflow file to GitHub:
+    ```bash
+    git add .
+    git commit -m "Add deployment workflow and htaccess"
+    git push origin main
