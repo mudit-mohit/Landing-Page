@@ -1,4 +1,5 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Logos from './components/Logos';
@@ -7,24 +8,35 @@ import FoundationSection from './components/FoundationSection';
 import CaseStudiesSection from './components/CaseStudiesSection';
 import SystemDesignSection from './components/SystemDesignSection';
 import ComparisonSection from './components/ComparisonSection';
-import FaqSection from './components/FaqSection';
-import Footer from './components/Footer'; // Import the new Footer
 import BookingScheduler from './components/BookingScheduler'; 
+import FaqSection from './components/FaqSection';
+import Footer from './components/Footer';
+import JobsPage from './pages/JobsPage'; // Import new Page
+
+// Create a Home Component for the landing page content
+const Home = () => (
+  <>
+    <Navbar />
+    <Hero />
+    <Logos />
+    <ProcessSection />
+    <FoundationSection />
+    <CaseStudiesSection />
+    <SystemDesignSection />
+    <ComparisonSection />
+    <BookingScheduler />
+    <FaqSection />
+    <Footer />
+  </>
+);
 
 function App() {
   return (
     <div className="min-h-screen w-full bg-[#f4f4f4] font-sans flex flex-col items-center">
-      <Navbar />
-      <Hero />
-      <Logos />
-      <ProcessSection />
-      <FoundationSection />
-      <CaseStudiesSection />
-      <SystemDesignSection />
-      <ComparisonSection />
-      <BookingScheduler />
-      <FaqSection />
-      <Footer /> {/* Add the new Footer at the end */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/jobs" element={<JobsPage />} />
+      </Routes>
     </div>
   );
 }

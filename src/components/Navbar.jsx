@@ -1,42 +1,65 @@
 import React from 'react';
-import { Calendar } from 'lucide-react'; // Make sure to import the icon if you use it
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const handleScrollToCalendar = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    const element = document.getElementById('BookingScheduler');
-    if (element) {
-      // Will scroll smoothly to the top of the next section
-      element.scrollIntoView({ behavior: 'smooth' });
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleScrollToSection = (id) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    // 1. Outer Wrapper: Positions the navbar fixed at the top with padding
     <div className="fixed top-0 w-full flex justify-center pt-5 px-4 z-50">
-      
-      {/* 2. The Navbar Container: White, rounded, bordered, shadow */}
-      <nav className="w-full max-w-[1280px] h-[68px] bg-black border border-black rounded-xl px-4 md:px-6 pt-2 flex justify-between items-center shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)]">
+      <nav className="w-full max-w-[1280px] h-[68px] bg-black border border-black rounded-xl px-4 md:px-6 flex justify-between items-center shadow-lg">
         
-        {/* LEFT: Logo (Updated) */}
-        <a href="/" className="flex items-center gap-2 cursor-pointer">
-          {/* Replaced the SVG with your uploaded 'outmate' logo */}
+        {/* LEFT: Logo */}
+        <div 
+          onClick={() => navigate('/')} 
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <img 
-            src="/outmate.png" // Using root-relative path assuming public/outmate.png
+            src="/outmate.png" 
             alt="Outmate Logo" 
-            className="h-[130px] md:h-[150px] w-auto object-contain" // Adjusted height for mobile and desktop
+            // Changed: Increased logo size to 110px on mobile
+            className="h-[130px] md:h-[150px] pt-1 w-auto object-contain" 
           />
-        </a>
+        </div>
 
-        {/* RIGHT: "Let's connect" Button */}
+        {/* CENTER: Navigation Links (Visible on mobile now) */}
+        {/* Changed: Removed 'hidden md:flex' to make it visible on all screens */}
+        <div className="flex items-center pb-.5 gap-4 md:gap-8">
+           <button 
+             onClick={() => navigate('/')}
+             className={`text-sm font-medium transition-colors ${location.pathname === '/' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+           >
+             Home
+           </button>
+           <button 
+             onClick={() => navigate('/jobs')}
+             className={`text-sm font-medium transition-colors ${location.pathname === '/jobs' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+           >
+             Jobs
+           </button>
+        </div>
+
+        {/* RIGHT: CTA Button */}
         <a 
             href="#BookingScheduler"
-            onClick={handleScrollToCalendar} 
-            className="bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white font-medium mb-2 py-2 px-4 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2 text-sm md:text-base"
+            onClick={(e) => { e.preventDefault(); handleScrollToSection('BookingScheduler'); }} 
+            className="bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white font-medium py-2 px-5 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2 text-sm"
         >
-            {/* Show Icon on Mobile, Text on Desktop/Tablet if needed, or just text that scales */}
             <span className="hidden md:inline">Let's connect</span>
-            <span className="md:hidden">Book Call</span>
+            <span className="md:hidden">Book</span>
         </a>
 
       </nav>
