@@ -20,7 +20,7 @@ export default function BookingScheduler({
   // We are using the direct key to prevent "ReferenceError: process is not defined" crashes.
   // This is safe for client-side API keys like Cal.com.
   const API_KEY = "cal_live_aa482560d7ce3d6237dc282711f8bf5e";
-  const EVENT_TYPE_ID = 4230487;
+  const EVENT_TYPE_ID = 3898877;
 
   /* // OPTIONAL: If you want to use .env later, uncomment the lines below 
   // based on your build tool (Vite vs Create React App).
@@ -52,10 +52,6 @@ export default function BookingScheduler({
   const [success, setSuccess] = useState(false);
   const [timeFormat24, setTimeFormat24] = useState(false);
   const [errorMsg, setErrorMsg] = useState(""); // UI Error message (no alerts)
-
-  // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
- // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
-  // ... inside your component
 
   // --- 1. FETCH SLOTS WHEN DATE CHANGES ---
   useEffect(() => {
@@ -134,8 +130,6 @@ export default function BookingScheduler({
 
     fetchAvailability();
   }, [selectedDate]);
-// ... rest of the file
-
 
   // --- 2. SUBMIT BOOKING ---
   async function handleBooking() {
@@ -246,7 +240,7 @@ export default function BookingScheduler({
   }
 
   return (
-    <section id='BookingScheduler' className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
+    <section id ='BookingScheduler' className="w-full max-w-7xl mx-auto px-4 py-16 font-sans">
 
       {/* HEADER SECTION */}
       <div className="flex flex-col items-center gap-4 mb-12 text-center">
@@ -406,20 +400,19 @@ export default function BookingScheduler({
                 <span className="text-sm">No slots available</span>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {availableSlots.map(slot => (
                   <button
                     key={slot.time}
                     onClick={() => setSelectedSlot(slot)}
                     className={`
-                        w-full text-left px-4 py-3 rounded-xl border transition-all duration-200 flex items-center justify-between group
+                        w-full text-center px-2 py-3 rounded-xl border transition-all duration-200 flex items-center justify-center group
                         ${selectedSlot?.time === slot.time
                         ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/30'
                         : 'bg-white border-gray-200 text-gray-700 hover:border-indigo-500 hover:shadow-md'}
                        `}
                   >
                     <span className="font-medium">{formatTime(slot.time)}</span>
-                    {selectedSlot?.time === slot.time && <CheckCircle size={16} />}
                   </button>
                 ))}
               </div>
