@@ -122,7 +122,7 @@ const Footer = () => {
 
             <div className="flex flex-col items-start md:items-end gap-2 text-xs text-white/60 font-sans">
 
-              <p>©2025 outmate - All Rights Reserved.</p>
+              <p>©2026 outmate - All Rights Reserved.</p>
             </div>
           </div>
         </div>
