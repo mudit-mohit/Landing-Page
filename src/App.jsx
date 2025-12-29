@@ -8,12 +8,14 @@ import FoundationSection from './components/FoundationSection';
 import CaseStudiesSection from './components/CaseStudiesSection';
 import SystemDesignSection from './components/SystemDesignSection';
 import ComparisonSection from './components/ComparisonSection';
-import BookingScheduler from './components/BookingScheduler'; 
+import BookingScheduler from './components/BookingScheduler';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
-import JobsPage from './pages/JobsPage'; // Import new Page
+import JobsPage from './pages/JobsPage';
+// import GtmPage from './pages/GtmPage';
+// ✅ IMPORT THE NEW PAGE
+import N8nWorkflowsPage from './pages/N8nWorkflowsPage'; 
 
-// Create a Home Component for the landing page content
 const Home = () => (
   <>
     <Navbar />
@@ -36,6 +38,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/jobs" element={<JobsPage />} />
+        {/* ✅ ADD THE ROUTE */}
+        <Route path="/workflows" element={<N8nWorkflowsPage />} />
       </Routes>
     </div>
   );
