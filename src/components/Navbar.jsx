@@ -42,12 +42,12 @@ const Navbar = () => {
           >
             Home
           </button>
-          {/* <button
+          <button
             onClick={() => navigate('/gtm-hub')}
             className={`text-sm font-medium transition-colors ${location.pathname === '/gtm-hub' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
           >
             GTM Hub
-          </button> */}
+          </button>
           
           {/* ✅ ADDED WORKFLOWS OPTION WITH NEW TAG */}
           <button

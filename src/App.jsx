@@ -12,9 +12,9 @@ import BookingScheduler from './components/BookingScheduler';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import JobsPage from './pages/JobsPage';
-// import GtmPage from './pages/GtmPage';
+import GtmPage from './pages/GtmPage';
 // ✅ IMPORT THE NEW PAGE
-import N8nWorkflowsPage from './pages/N8nWorkflowsPage'; 
+import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
 
 const Home = () => (
   <>
@@ -38,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/gtm-hub" element={<GtmPage />} />
         {/* ✅ ADD THE ROUTE */}
         <Route path="/workflows" element={<N8nWorkflowsPage />} />
       </Routes>
