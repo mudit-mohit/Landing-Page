@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import WorkflowHero from '../components/n8n/WorkflowHero';
 import WorkflowGrid from '../components/n8n/WorkflowGrid';
 import { getWorkflows } from '../services/n8nApi';
+import { Helmet } from 'react-helmet-async';
 
 const N8nWorkflowsPage = () => {
   const [workflows, setWorkflows] = useState([]);
@@ -22,13 +23,13 @@ const N8nWorkflowsPage = () => {
   const fetchData = async (pageNum, reset = false) => {
     setLoading(true);
     const data = await getWorkflows(pageNum, search, category);
-    
+
     if (reset) {
-        setWorkflows(data.workflows);
+      setWorkflows(data.workflows);
     } else {
-        setWorkflows(prev => [...prev, ...data.workflows]);
+      setWorkflows(prev => [...prev, ...data.workflows]);
     }
-    
+
     setTotalCount(data.totalWorkflows);
     setHasMore(pageNum < data.totalPages);
     setLoading(false);
@@ -41,22 +42,30 @@ const N8nWorkflowsPage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f4f4f4] font-sans">
-      <Navbar />
-      <WorkflowHero 
-        onSearch={setSearch} 
-        onCategoryChange={setCategory} 
-        activeCategory={category}
-      />
-      <WorkflowGrid 
-        workflows={workflows} 
-        totalCount={totalCount} 
-        onLoadMore={handleLoadMore} 
-        hasMore={hasMore} 
-        loading={loading}
-      />
-      <Footer />
-    </div>
+    <>
+      <Helmet>
+        <title>Ready-to-Use n8n Automation Workflows | Outmate</title>
+        <meta name="description" content="Browse ready-to-use automation workflows on Outmate. Discover powerful n8n-workflows to connect apps, automate tasks, and streamline operations." />
+        <link rel="canonical" href="https://outmate.ai/workflows" />
+      </Helmet>
+
+      <div className="min-h-screen w-full bg-[#f4f4f4] font-sans">
+        <Navbar />
+        <WorkflowHero
+          onSearch={setSearch}
+          onCategoryChange={setCategory}
+          activeCategory={category}
+        />
+        <WorkflowGrid
+          workflows={workflows}
+          totalCount={totalCount}
+          onLoadMore={handleLoadMore}
+          hasMore={hasMore}
+          loading={loading}
+        />
+        <Footer />
+      </div>
+    </>
   );
 };
 

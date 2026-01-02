@@ -42,6 +42,13 @@ const Navbar = () => {
           >
             Home
           </button>
+          
+          {/* <button
+            onClick={() => navigate('/prompts')}
+            className={`text-sm font-medium transition-colors ${location.pathname === '/prompts' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+          >
+            Prompt Library
+          </button> */}
           <button
             onClick={() => navigate('/gtm-hub')}
             className={`text-sm font-medium transition-colors ${location.pathname === '/gtm-hub' ? 'text-white' : 'text-gray-400 hover:text-white'}`}

@@ -13,6 +13,11 @@ dist-ssr
 *.local
 full_project_context.txt
 generate_context.py
+src/components/prompts
+src/pages/PromptCategoryPage.jsx
+src/pages/PromptDetailPage.jsx
+src/pages/PromptLibraryPage.jsx
+
 
 # Editor directories and files
 .vscode/*

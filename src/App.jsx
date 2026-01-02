@@ -15,6 +15,9 @@ import JobsPage from './pages/JobsPage';
 import GtmPage from './pages/GtmPage';
 // ✅ IMPORT THE NEW PAGE
 import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
+import PromptLibraryPage from './pages/PromptLibraryPage';
+import PromptCategoryPage from './pages/PromptCategoryPage';
+import PromptDetailPage from './pages/PromptDetailPage';
 
 const Home = () => (
   <>
@@ -41,6 +44,9 @@ function App() {
         <Route path="/gtm-hub" element={<GtmPage />} />
         {/* ✅ ADD THE ROUTE */}
         <Route path="/workflows" element={<N8nWorkflowsPage />} />
+        <Route path="/prompts" element={<PromptLibraryPage />} />
+        <Route path="/prompts/:slug" element={<PromptCategoryPage />} /> {/* ✅ NEW DYNAMIC ROUTE */}
+        <Route path="/prompts/:slug/:promptId" element={<PromptDetailPage />} />
       </Routes>
     </div>
   );
