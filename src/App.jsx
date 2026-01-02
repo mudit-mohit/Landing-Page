@@ -44,9 +44,9 @@ function App() {
         <Route path="/gtm-hub" element={<GtmPage />} />
         {/* ✅ ADD THE ROUTE */}
         <Route path="/workflows" element={<N8nWorkflowsPage />} />
-        <Route path="/prompts" element={<PromptLibraryPage />} />
-        <Route path="/prompts/:slug" element={<PromptCategoryPage />} /> {/* ✅ NEW DYNAMIC ROUTE */}
-        <Route path="/prompts/:slug/:promptId" element={<PromptDetailPage />} />
+        {/* <Route path="/prompts" element={<PromptLibraryPage />} />
+        <Route path="/prompts/:slug" element={<PromptCategoryPage />} /> ✅ NEW DYNAMIC ROUTE */}
+        {/* <Route path="/prompts/:slug/:promptId" element={<PromptDetailPage />} /> */}
       </Routes>
     </div>
   );
