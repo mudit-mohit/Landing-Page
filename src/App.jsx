@@ -15,9 +15,9 @@ import JobsPage from './pages/JobsPage';
 import GtmPage from './pages/GtmPage';
 // ✅ IMPORT THE NEW PAGE
 import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
-import PromptLibraryPage from './pages/PromptLibraryPage';
-import PromptCategoryPage from './pages/PromptCategoryPage';
-import PromptDetailPage from './pages/PromptDetailPage';
+// import PromptLibraryPage from './pages/PromptLibraryPage';
+// import PromptCategoryPage from './pages/PromptCategoryPage';
+// import PromptDetailPage from './pages/PromptDetailPage';
 
 const Home = () => (
   <>
