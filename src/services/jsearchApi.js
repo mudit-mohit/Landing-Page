@@ -1,6 +1,6 @@
 export const fetchJobs = async ({ query, datePosted, jobType, remote }) => {
   // Replace with your actual RapidAPI Key
-  const RAPID_API_KEY = '298ea72f92mshf2e44e4e7cabc9dp1ad588jsnffd7764b0420'; 
+  const RAPID_API_KEY = '11e8909fa8msha4118787dd7b5d5p13d20djsn33b0328a2b53'; 
   
   const options = {
     method: 'GET',
