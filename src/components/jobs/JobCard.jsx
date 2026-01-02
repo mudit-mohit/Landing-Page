@@ -1,14 +1,23 @@
 import React from "react";
-import { MapPin, Clock } from "lucide-react"; // Ensure lucide-react is installed
+import { MapPin, Clock } from "lucide-react"; 
+import { useNavigate } from 'react-router-dom'; // ✅ 1. Import Navigation Hook
 
-const JobCard = ({ job, onClick }) => {
+const JobCard = ({ job }) => {
+  const navigate = useNavigate(); // ✅ 2. Initialize Hook
+
   // Logic to handle missing logos
   const hasLogo = Boolean(job.employer_logo);
   const companyInitial = job.employer_name ? job.employer_name.charAt(0).toUpperCase() : "?";
 
+  // ✅ 3. Navigation Handler
+  const handleCardClick = () => {
+    // Navigate to /jobs/JobID (This matches the route we created in App.jsx)
+    navigate(`/jobs/${job.job_id}`);
+  };
+
   return (
     <div 
-      onClick={onClick}
+      onClick={handleCardClick} // ✅ 4. Use the handler here
       className="group flex flex-col p-6 bg-white border border-[#E1E2E3] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer hover:-translate-y-1 h-full"
     >
       {/* Header */}

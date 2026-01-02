@@ -13,11 +13,11 @@ import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import JobsPage from './pages/JobsPage';
 import GtmPage from './pages/GtmPage';
-// ✅ IMPORT THE NEW PAGE
 import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
 // import PromptLibraryPage from './pages/PromptLibraryPage';
 // import PromptCategoryPage from './pages/PromptCategoryPage';
 // import PromptDetailPage from './pages/PromptDetailPage';
+import JobDetailPage from './pages/JobDetailPage';
 
 const Home = () => (
   <>
@@ -39,14 +39,21 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-[#f4f4f4] font-sans flex flex-col items-center">
       <Routes>
+        {/* Core Routes */}
         <Route path="/" element={<Home />} />
+        
+        {/* Jobs Routes */}
         <Route path="/jobs" element={<JobsPage />} />
-        <Route path="/gtm-hub" element={<GtmPage />} />
-        {/* ✅ ADD THE ROUTE */}
-        <Route path="/workflows" element={<N8nWorkflowsPage />} />
-        {/* <Route path="/prompts" element={<PromptLibraryPage />} />
-        <Route path="/prompts/:slug" element={<PromptCategoryPage />} /> ✅ NEW DYNAMIC ROUTE */}
-        {/* <Route path="/prompts/:slug/:promptId" element={<PromptDetailPage />} /> */}
+        <Route path="/jobs/:jobId" element={<JobDetailPage />} />
+
+        {/* ✅ NEW: OUTMATE LABS ROUTES */}
+        <Route path="/outmate-labs/gtm-hub" element={<GtmPage />} />
+        <Route path="/outmate-labs/workflows" element={<N8nWorkflowsPage />} />
+        
+        {/* Prompt Library Nested Routes
+        <Route path="/outmate-labs/prompts" element={<PromptLibraryPage />} />
+        <Route path="/outmate-labs/prompts/:slug" element={<PromptCategoryPage />} />
+        <Route path="/outmate-labs/prompts/:slug/:promptId" element={<PromptDetailPage />} /> */}
       </Routes>
     </div>
   );

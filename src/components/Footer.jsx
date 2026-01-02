@@ -53,21 +53,6 @@ const Footer = () => {
                 <br /><br />
                 We’ll map your goals, challenges, and ideate your TAM — so you leave with a clear picture of the channel’s potential and the next steps to turn it into a predictable revenue engine.
               </p>
-
-              {/* <form className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-grow px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:border-white"
-                />
-                <button
-                  type="submit"
-                  className="bg-gradient-to-b from-[#1679fa] to-[#0a61d1] text-white px-5 py-3 rounded-lg font-display font-medium text-lg"
-                >
-                  Submit
-                </button>
-              </form> */}
-
             </div>
 
             {/* Right Side: Text & Form */}
@@ -85,9 +70,10 @@ const Footer = () => {
               <div className="flex flex-col gap-4">
                 <h4 className="font-display font-semibold text-sm uppercase text-white">Navigation</h4>
                 <div className="flex flex-col gap-3">
-                  
                   <a href="#process" className="font-sans text-sm text-white/70 hover:text-white transition-colors">Our Process</a>
                   <a href="#case-studies" className="font-sans text-sm text-white/70 hover:text-white transition-colors">Case Studies</a>
+                  {/* ✅ Added Labs Link */}
+                  {/* <a href="/outmate-labs/prompts" className="font-sans text-sm text-white/70 hover:text-white transition-colors">Outmate Labs</a> */}
                   <a href="#faq" className="font-sans text-sm text-white/70 hover:text-white transition-colors">FAQ</a>
                 </div>
               </div>
@@ -104,7 +90,7 @@ const Footer = () => {
                 <h4 className="font-display font-semibold text-sm uppercase text-white">Get in touch</h4>
                 <a href="https://www.linkedin.com/in/gautam-singh-manral/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                   <img
-                    src="./GautamProfile.jpg"
+                    src="/GautamProfile.jpg"
                     alt="GautamProfile"
                     className="w-10 h-10 rounded-full"
                   />
@@ -121,7 +107,6 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-col items-start md:items-end gap-2 text-xs text-white/60 font-sans">
-
               <p>©2026 outmate - All Rights Reserved.</p>
             </div>
           </div>

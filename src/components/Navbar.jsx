@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronDown, FlaskConical } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,6 +18,9 @@ const Navbar = () => {
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Check if we are inside any Outmate Labs page for active styling
+  const isLabsActive = location.pathname.includes('/outmate-labs');
 
   return (
     <div className="fixed top-0 w-full flex justify-center pt-5 px-4 z-50">
@@ -43,29 +47,47 @@ const Navbar = () => {
             Home
           </button>
           
-          {/* <button
-            onClick={() => navigate('/prompts')}
-            className={`text-sm font-medium transition-colors ${location.pathname === '/prompts' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
-          >
-            Prompt Library
-          </button> */}
-          <button
-            onClick={() => navigate('/gtm-hub')}
-            className={`text-sm font-medium transition-colors ${location.pathname === '/gtm-hub' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
-          >
-            GTM Hub
-          </button>
-          
-          {/* ✅ ADDED WORKFLOWS OPTION WITH NEW TAG */}
-          <button
-            onClick={() => navigate('/workflows')}
-            className={`text-sm font-medium transition-colors flex items-center gap-2 ${location.pathname === '/workflows' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
-          >
-            Workflows
-            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1679fa] text-white leading-none tracking-wide">
-              NEW
-            </span>
-          </button>
+          {/* ✅ OUTMATE LABS DROPDOWN */}
+          <div className="relative group">
+            <button
+              className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${isLabsActive ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+            >
+              <FlaskConical size={14} className={isLabsActive ? "text-blue-500" : ""} />
+              Outmate Labs
+              <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200 opacity-60" />
+            </button>
+
+            {/* Dropdown Menu - Styled to match Black Navbar */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 hidden group-hover:block w-56">
+                <div className="bg-[#0F0F0F] border border-[#2A2A2A] rounded-xl p-2 shadow-2xl flex flex-col gap-1">
+                    
+                    {/* Option 1: GTM Hub */}
+                    <button 
+                        onClick={() => navigate('/outmate-labs/gtm-hub')} 
+                        className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors ${location.pathname.includes('gtm-hub') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                    >
+                        GTM Hub
+                    </button>
+
+                    {/* Option 2: Workflows */}
+                    <button 
+                        onClick={() => navigate('/outmate-labs/workflows')} 
+                        className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('workflows') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                    >
+                        Workflows
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1679fa] text-white leading-none">NEW</span>
+                    </button>
+
+                    {/* Option 3: Prompt Library
+                    <button 
+                        onClick={() => navigate('/outmate-labs/prompts')} 
+                        className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors ${location.pathname.includes('prompts') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                    >
+                        Prompt Library
+                    </button> */}
+                </div>
+            </div>
+          </div>
 
           <button
             onClick={() => navigate('/jobs')}
