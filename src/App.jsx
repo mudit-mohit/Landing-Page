@@ -14,10 +14,12 @@ import Footer from './components/Footer';
 import JobsPage from './pages/JobsPage';
 import GtmPage from './pages/GtmPage';
 import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
-// import PromptLibraryPage from './pages/PromptLibraryPage';
-// import PromptCategoryPage from './pages/PromptCategoryPage';
-// import PromptDetailPage from './pages/PromptDetailPage';
 import JobDetailPage from './pages/JobDetailPage';
+// import OutboundTipsPage from './pages/OutboundTipsPage';
+// import ToolDetailPage from './pages/ToolDetailPage';
+// ✅ Import Tool Pages
+// import GtmToolsPage from './pages/GtmToolsPage';
+// import ToolDetailPage from './pages/ToolDetailPage'; // Placeholder for later
 
 const Home = () => (
   <>
@@ -46,14 +48,16 @@ function App() {
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/jobs/:jobId" element={<JobDetailPage />} />
 
-        {/* ✅ NEW: OUTMATE LABS ROUTES */}
+        {/* ✅ OUTMATE LABS ROUTES */}
         <Route path="/outmate-labs/gtm-hub" element={<GtmPage />} />
         <Route path="/outmate-labs/workflows" element={<N8nWorkflowsPage />} />
+        {/* <Route path="/outmate-labs/tips" element={<OutboundTipsPage />} /> */}
         
-        {/* Prompt Library Nested Routes
-        <Route path="/outmate-labs/prompts" element={<PromptLibraryPage />} />
-        <Route path="/outmate-labs/prompts/:slug" element={<PromptCategoryPage />} />
-        <Route path="/outmate-labs/prompts/:slug/:promptId" element={<PromptDetailPage />} /> */}
+        {/* ✅ NEW TOOLS ROUTES */}
+        {/* <Route path="/outmate-labs/tools" element={<GtmToolsPage />} /> */}
+        {/* <Route path="/outmate-labs/tools/:slug" element={<ToolDetailPage />} /> */}
+        {/* <Route path="/outmate-labs/tools/:slug" element={<ToolDetailPage />} /> */} 
+
       </Routes>
     </div>
   );

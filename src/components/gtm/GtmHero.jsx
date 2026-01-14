@@ -14,7 +14,7 @@ const GtmHero = () => {
 
         {/* Title */}
         <h1 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black mb-6 max-w-3xl">
-           Master the Art of <span className="text-[#999999]">Go-To-Market</span>
+           Master the Art of <br></br><span className="text-[#1679fa]">Go-To-Market</span>
         </h1>
         
         {/* Subtitle */}

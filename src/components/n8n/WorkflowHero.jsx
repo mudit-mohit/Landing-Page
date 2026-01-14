@@ -32,9 +32,9 @@ const WorkflowHero = ({ onSearch, onCategoryChange, activeCategory }) => {
 
             {/* 2. HEADING */}
             <h1 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black mb-6 max-w-4xl">
-                Supercharge your automation with <span className="text-[#999999]">4,000+ Workflows</span>
+                Supercharge your automation with <span className="text-[#1679fa]">4,000+ Workflows</span>
             </h1>
-
+{/* #1679fa */}
             {/* 3. SUBHEADING */}
             <p className="font-display text-lg text-[#4d4d4d] max-w-2xl mx-auto mb-10 leading-relaxed">
                 Discover, copy, and deploy production-ready automations for Marketing, DevOps, and AI. Save hundreds of hours instantly.

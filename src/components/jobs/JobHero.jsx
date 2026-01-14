@@ -20,7 +20,7 @@ const JobHero = ({ onSearch, filters, setFilters }) => {
         </div>
 
         <h1 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black mb-6">
-           Find your next <span className="text-[#999999]">GTM Insight</span>
+           Find your next <span className="text-[#1679fa]">GTM Insight</span>
         </h1>
         
         <p className="font-display text-lg text-[#4d4d4d] max-w-2xl mx-auto mb-10">

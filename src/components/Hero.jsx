@@ -72,7 +72,7 @@ const Hero = () => {
         {/* --- 3. Main Typography --- */}
         <div className="z-10 flex flex-col items-center text-center max-w-[980px] px-4 gap-6">
           <h1 className="font-display font-semibold text-5xl md:text-[64px] tracking-tight leading-[1.1] text-black">
-            We engineer outbound into your primary <span className="text-[#999999]">revenue channel</span>
+            We engineer outbound into your primary <span className="text-[#1679fa]">revenue channel</span>
           </h1>
           
           <p className="font-display text-lg text-[#4d4d4d] max-w-[560px] leading-relaxed mt-2">
