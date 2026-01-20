@@ -1,0 +1,56 @@
+/* /* src/styles/light-mode.css */
+
+/* apply when html has class "light-mode" */
+html.light-mode {
+  --bg-page: #ffffff;
+  --bg-surface: #f6f6f6;
+  --text-primary: #0b0b0b;
+  --text-secondary: #333333;
+  --muted: #525252;
+  --card-shadow: rgba(0,0,0,0.05);
+}
+
+/* leave dark defaults when not present */
+html:not(.light-mode) {
+  --bg-page: #000000;
+  --bg-surface: #121212;
+  --text-primary: #ffffff;
+  --text-secondary: #bababa;
+  --muted: #8b8b8b;
+}
+
+/* page background */
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* common surface (cards, panels) */
+.bg-surface, .card, .expert-card {
+  background: var(--bg-surface) !important;
+  box-shadow: 0 6px 24px var(--card-shadow);
+}
+
+/* text overrides */
+.text-white, .text-[#f1f1f1], .text-[#fff] {
+  color: var(--text-primary) !important;
+}
+
+.text-[#bababa], .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* example for buttons that had gradient border wrapper:
+   invert inner background to keep same look but light background */
+.btn-gradient-border > button,
+button.btn-gradient {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* dots, small borders etc */
+.border-light {
+  border-color: rgba(0,0,0,0.06) !important;
+}
+
+/* Keep gradients as-is (unless you ask to invert them) */

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, FlaskConical, Database } from 'lucide-react';
+import { ChevronDown, FlaskConical, Database, Rocket } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -52,15 +52,15 @@ const Navbar = () => {
                 <button onClick={() => navigate('/outmate-labs/workflows')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('workflows') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
                   Workflows <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1679fa] text-white leading-none">NEW</span>
                 </button>
-                
+
                 {/* ✅ NEW GTM TOOLS LINK
                 <button onClick={() => navigate('/outmate-labs/tools')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tools') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
                   GTM Tools Directory
                 </button> */}
 
-                {/* <button onClick={() => navigate('/outmate-labs/tips')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tips') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                <button onClick={() => navigate('/outmate-labs/tips')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tips') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
                   Outbound Tips
-                </button> */}
+                </button>
               </div>
             </div>
           </div>
@@ -68,6 +68,11 @@ const Navbar = () => {
           <button onClick={() => navigate('/jobs')} className={`text-sm font-medium transition-colors ${location.pathname === '/jobs' ? 'text-white' : 'text-gray-400 hover:text-white'}`}>
             Jobs
           </button>
+
+          {/* <button onClick={() => navigate('/gtm-squad')} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${location.pathname.includes('/gtm-squad') ? 'text-white' : 'text-gray-400 hover:text-white'}`}>
+            <Rocket size={14} className={location.pathname.includes('/gtm-squad') ? "text-purple-500" : ""} />
+            GTM Squad
+          </button> */}
         </div>
 
         {/* RIGHT: CTA Button */}

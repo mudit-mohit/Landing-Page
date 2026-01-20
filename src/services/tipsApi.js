@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api'; // Or your production URL
+const API_BASE_URL = 'https://api.outmate.ai/api'; // Or your production URL
 
 export const getTips = async (category) => {
   try {

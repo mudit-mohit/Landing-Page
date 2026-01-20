@@ -1,0 +1,147 @@
+/* ------------------------------ */
+/* MARQUEE WRAPPER */
+/* ------------------------------ */
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-row {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.marquee-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  animation-duration: 22s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Directions */
+.marquee-left .marquee-track {
+  animation-name: marquee-left;
+}
+
+.marquee-right .marquee-track {
+  animation-name: marquee-right;
+}
+
+/* Animations */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ------------------------------ */
+/* TESTIMONIAL CARD (Figma Perfect) */
+/* ------------------------------ */
+
+/* Note: card background is controlled inline (JSX). Keep CSS minimal so it doesn't override wrapper */
+.testimonial-card {
+  width: 420px;
+  min-width: 420px;
+  border-radius: 20px;
+  padding: 26px 26px 24px 26px;
+  margin-right: 20px;
+
+  border: 1px solid #E5E5E5; /* will be overridden inline for dark look */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ------------------------------ */
+/* TOP BAR (Logo + Quote Icon) */
+/* ------------------------------ */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.company-logo {
+  width: 120px;
+  height: 48px;
+  border-radius: 10px; /* Matches Figma */
+  object-fit: cover;
+}
+
+.quote-icon {
+  width: 34px;
+  height: 34px;
+  opacity: 0.7;
+}
+
+/* ------------------------------ */
+/* QUOTE TEXT */
+/* ------------------------------ */
+
+.card-quote {
+  font-size: 16px;
+  color: #4A4A4A; /* default color for light usage — text in card is set inline */
+  line-height: 23px;
+  margin-top: 18px;
+}
+
+/* ------------------------------ */
+/* AUTHOR SECTION */
+/* ------------------------------ */
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.author-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.author-role {
+  font-size: 14px;
+  color: #6B6B6B;
+  margin-top: -2px;
+}
+
+/* ------------------------------ */
+/* RESPONSIVE TWEAKS */
+/* ------------------------------ */
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    width: 300px;
+    min-width: 300px;
+  }
+
+  .company-logo {
+    width: 100px;
+    height: 40px;
+  }
+
+  .quote-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
