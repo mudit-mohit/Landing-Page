@@ -63,7 +63,7 @@ const SystemDesignSection = () => {
           </div>
           
           {/* Main Title */}
-          <h2 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black text-center max-w-3xl leading-tight">
+          <h2 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black text-center max-w-3xl leading-[1.2]">
             Where traditional outbound breaks — and how we solved it:
           </h2>
         </div>

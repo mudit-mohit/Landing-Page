@@ -56,6 +56,8 @@ const Footer = () => {
             </div>
 
             {/* Right Side: Text & Form */}
+            <iframe src="https://outmatelabs.substack.com/embed" width="480" height="150" style={{ border: '1px solid #EEE', background: 'white' }} frameBorder="0" scrolling="no"></iframe>
+
           </div>
 
           {/* --- Divider Line --- */}
@@ -75,6 +77,7 @@ const Footer = () => {
                   {/* ✅ Added Labs Link */}
                   {/* <a href="/outmate-labs/prompts" className="font-sans text-sm text-white/70 hover:text-white transition-colors">Outmate Labs</a> */}
                   <a href="#faq" className="font-sans text-sm text-white/70 hover:text-white transition-colors">FAQ</a>
+                  <a href="/privacy-policy" className="font-sans text-sm text-white/70 hover:text-white transition-colors">Privacy Policy</a>
                 </div>
               </div>
               {/* Follow */}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
     <url>
 
         <loc>https://outmate.ai/</loc>
@@ -14,7 +15,7 @@
 
     <url>
 
-        <loc>https://outmate.ai/workflows</loc>
+        <loc>https://outmate.ai/outmate-labs/workflows</loc>
 
         <changefreq>daily</changefreq>
 
@@ -25,7 +26,7 @@
 
     <url>
 
-        <loc>https://outmate.ai/gtm-hub</loc>
+        <loc>https://outmate.ai/outmate-labs/gtm-hub</loc>
 
         <changefreq>hourly</changefreq>
 
@@ -37,6 +38,17 @@
     <url>
 
         <loc>https://outmate.ai/jobs</loc>
+
+        <changefreq>daily</changefreq>
+
+        <priority>0.8</priority>
+
+    </url>
+
+
+    <url>
+
+        <loc>https://outmate.ai/outmate-labs/tips</loc>
 
         <changefreq>daily</changefreq>
 

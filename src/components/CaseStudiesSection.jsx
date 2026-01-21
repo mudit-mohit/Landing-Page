@@ -63,7 +63,7 @@ const CaseStudyCard = ({ card, index }) => (
       <div className="w-full h-px bg-[#E1E2E3]"></div>
 
       {/* 3. Title */}
-      <h3 className="font-display font-semibold text-2xl md:text-3xl text-black leading-tight min-h-[64px]">
+      <h3 className="font-display font-semibold text-2xl md:text-3xl text-black leading-[1.2] min-h-[64px]">
         {card.title}
       </h3>
 

@@ -88,7 +88,7 @@ const ComparisonSection = () => {
           </div>
           
           {/* Main Title */}
-          <h2 className="font-display font-semibold text-5xl md:text-6xl tracking-tight text-black text-center max-w-3xl">
+          <h2 className="font-display font-semibold text-5xl md:text-6xl leading-[1.2] text-black text-center max-w-3xl">
             Why B2B revenue teams choose outmate:
           </h2>
         </div>
