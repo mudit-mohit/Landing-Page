@@ -18,7 +18,7 @@ src/components/tools
 src/pages/PromptCategoryPage.jsx
 src/pages/PromptDetailPage.jsx
 src/pages/PromptLibraryPage.jsx
-src/pages/GtmToolsPage.jsx
+
 src/pages/ToolDetailPage.jsx
 
 # Editor directories and files
