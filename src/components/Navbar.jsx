@@ -46,21 +46,21 @@ const Navbar = () => {
 
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 hidden group-hover:block w-56">
               <div className="bg-[#0F0F0F] border border-[#2A2A2A] rounded-xl p-2 shadow-2xl flex flex-col gap-1">
-                <button onClick={() => navigate('/outmate-labs/gtm-hub')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors ${location.pathname.includes('gtm-hub') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                {/* <button onClick={() => navigate('/outmate-labs/gtm-hub')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors ${location.pathname.includes('gtm-hub') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
                   GTM Hub
-                </button>
+                </button> */}
                 <button onClick={() => navigate('/outmate-labs/workflows')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('workflows') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
-                  Workflows <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1679fa] text-white leading-none">NEW</span>
+                  N8N Workflows <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1679fa] text-white leading-none">NEW</span>
                 </button>
 
-                {/* ✅ NEW GTM TOOLS LINK
+                {/* ✅ NEW GTM TOOLS LINK */}
                 <button onClick={() => navigate('/outmate-labs/tools')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tools') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
                   GTM Tools Directory
-                </button> */}
-
-                <button onClick={() => navigate('/outmate-labs/tips')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tips') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
-                  Outbound Tips
                 </button>
+
+                {/* <button onClick={() => navigate('/outmate-labs/tips')} className={`text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${location.pathname.includes('tips') ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                  Outbound Tips
+                </button> */}
               </div>
             </div>
           </div>

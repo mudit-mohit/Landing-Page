@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
-  ArrowLeft, Globe, Linkedin, Youtube, ExternalLink,
+  ArrowLeft, ArrowRight, Globe, Linkedin, Youtube, ExternalLink,
   CheckCircle2, HelpCircle, Layers, Users, Zap, DollarSign,
-  ChevronDown, ChevronUp, Play, Target, Star, Check
+  ChevronDown, ChevronUp, Play, Target, Star, Check, BookOpen
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,26 +19,49 @@ const getYoutubeEmbed = (url) => {
 };
 
 // --- COMPONENT: COMPLEXITY METER ---
+// --- COMPONENT: COMPLEXITY METER (MODERN) ---
 const ComplexityMeter = ({ score }) => {
-  const getColor = () => {
-    if (score < 40) return 'bg-emerald-500';
-    if (score < 70) return 'bg-amber-500';
-    return 'bg-rose-500';
+  const getLevel = () => {
+    if (score < 40) return { label: 'Low', color: 'text-emerald-500', barColor: 'bg-emerald-400' };
+    if (score < 70) return { label: 'Medium', color: 'text-amber-500', barColor: 'bg-amber-400' };
+    return { label: 'High', color: 'text-rose-500', barColor: 'bg-rose-500' };
   };
+
+  const level = getLevel();
 
   return (
     <div className="w-full">
-      <div className="flex justify-between text-[10px] font-bold uppercase text-gray-400 mb-2 tracking-wider">
-        <span>Easy</span>
-        <span>Complex</span>
+      <div className="flex justify-between items-end mb-3">
+        <span className={`text-2xl font-display font-bold ${level.color}`}>
+          {score}<span className="text-sm text-gray-500 ml-0.5">/100</span>
+        </span>
+        <span className={`text-xs font-bold uppercase tracking-wider ${level.color} bg-gray-50 px-2 py-1 rounded-lg border border-gray-100`}>
+          {level.label} Complexity
+        </span>
       </div>
-      <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${score}%` }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className={`h-full rounded-full ${getColor()}`}
-        />
+
+      {/* Segmented Bar Design */}
+      <div className="flex gap-1 h-3 w-full">
+        {[...Array(10)].map((_, i) => {
+          // Calculate active state for each segment (each segment represents 10%)
+          const isActive = score >= (i + 1) * 10 - 5;
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0.3, scaleY: 0.5 }}
+              animate={{
+                opacity: isActive ? 1 : 0.2,
+                scaleY: isActive ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className={`flex-1 rounded-full ${isActive ? level.barColor : 'bg-gray-200'}`}
+            />
+          );
+        })}
+      </div>
+      <div className="flex justify-between mt-2 text-[10px] font-bold uppercase text-gray-400 tracking-wider">
+        <span>Simple</span>
+        <span>Advanced</span>
       </div>
     </div>
   );
@@ -73,98 +96,143 @@ const FaqItem = ({ question, answer }) => {
 };
 
 // --- COMPONENT: PRICING SECTION ---
-const PricingSection = () => {
-  const [billingCycle, setBillingCycle] = useState('monthly');
+const PricingSection = ({ plans }) => {
+  const scrollRef = React.useRef(null);
 
-  const plans = [
-    {
-      name: 'Starter',
-      price: billingCycle === 'monthly' ? '$29' : '$24',
-      period: 'mo',
-      description: 'Perfect for individuals and small teams starting out.',
-      features: ['Basic Analytics', '5 Team Members', '10 Projects', 'Community Support'],
-      highlighted: false
-    },
-    {
-      name: 'Pro',
-      price: billingCycle === 'monthly' ? '$79' : '$65',
-      period: 'mo',
-      description: 'For growing businesses comprising larger teams.',
-      features: ['Advanced Analytics', 'Unlimited Team Members', 'Unlimited Projects', 'Priority Support', 'Custom Integrations'],
-      highlighted: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      period: '',
-      description: 'Tailored solutions for large-scale organizations.',
-      features: ['Dedicated Account Manager', 'SSO & Advanced Security', 'Custom SLAs', 'On-premise Deployment'],
-      highlighted: false
+  if (!plans || plans.length === 0) return null;
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      // Scroll by the width of one card (approx) or 100% of view
+      const scrollAmount = container.clientWidth / (window.innerWidth >= 768 ? 3 : 1);
+      container.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
     }
-  ];
+  };
 
   return (
     <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
-          <h3 className="text-2xl font-display font-bold text-gray-900">Pricing Plans</h3>
-          <p className="text-gray-500 text-sm mt-1">Simple, transparent pricing for everyone.</p>
-        </div>
+      <div className="mb-8">
+        <h3 className="text-2xl font-display font-bold text-gray-900">Pricing Plans</h3>
+        <p className="text-gray-500 text-sm mt-1">Simple, transparent pricing for everyone.</p>
+      </div>
 
-        {/* Billing Toggle */}
-        <div className="flex items-center bg-gray-100 p-1 rounded-xl w-fit">
-          <button
-            onClick={() => setBillingCycle('monthly')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${billingCycle === 'monthly' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => setBillingCycle('yearly')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${billingCycle === 'yearly' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
-          >
-            Yearly <span className="text-[10px] text-green-600 ml-1">-20%</span>
-          </button>
+      <div className="relative group">
+        <style>{`
+          .scrollbar-hide::-webkit-scrollbar {
+              display: none;
+          }
+          .scrollbar-hide {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+          }
+        `}</style>
+
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+        >
+          {plans.map((plan, i) => {
+            const isHighlighted = plan.planName?.toLowerCase().includes('pro') || plan.planName?.toLowerCase().includes('business');
+            return (
+              <div
+                key={plan._id || i}
+                className={`flex-shrink-0 snap-start w-full md:w-[calc(33.333%-11px)] relative p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isHighlighted
+                  ? 'bg-black text-white border-black ring-4 ring-black/5 shadow-xl'
+                  : 'bg-white text-gray-900 border-gray-200 hover:border-gray-300 hover:shadow-lg'
+                  }`}
+              >
+                {isHighlighted && (
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
+                    POPULAR
+                  </div>
+                )}
+                <h4 className={`text-sm font-bold uppercase tracking-wider mb-2 ${isHighlighted ? 'text-gray-400' : 'text-gray-500'}`}>{plan.planName}</h4>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-4xl font-display font-bold">{plan.price}</span>
+                  {plan.billing && <span className={`text-xs ${isHighlighted ? 'text-gray-400' : 'text-gray-500'}`}>/{plan.billing}</span>}
+                </div>
+
+                <div className="space-y-3 mb-8">
+                  {plan.features.map((feature, f) => (
+                    <div key={f} className="flex items-start gap-2 text-sm">
+                      <Check size={16} className={`shrink-0 mt-0.5 ${isHighlighted ? 'text-green-400' : 'text-blue-600'}`} />
+                      <span className={isHighlighted ? 'text-gray-300' : 'text-gray-600'}>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {plans.map((plan, i) => (
-          <div
-            key={i}
-            className={`relative p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${plan.highlighted
-                ? 'bg-black text-white border-black ring-4 ring-black/5 shadow-xl'
-                : 'bg-white text-gray-900 border-gray-200 hover:border-gray-300 hover:shadow-lg'
-              }`}
+      {plans.length > 3 && (
+        <div className="flex justify-center gap-4 mt-8">
+          <button
+            onClick={() => scroll('left')}
+            className="p-3 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-black hover:border-black transition-all"
           >
-            {plan.highlighted && (
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
-                POPULAR
+            <ArrowLeft size={20} />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            className="p-3 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-black hover:border-black transition-all"
+          >
+            <ArrowRight size={20} />
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- COMPONENT: LEARN MORE SECTION ---
+const LearnMoreSection = ({ resources }) => {
+  if (!resources || resources.length === 0) return null;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3 mb-2">
+        <div className="p-2.5 bg-sky-50 text-sky-600 rounded-xl">
+          <BookOpen size={20} className="fill-sky-100" />
+        </div>
+        <h2 className="text-2xl font-display font-bold text-gray-900">Learn More</h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {resources.map((item, i) => (
+          <a
+            key={i}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 w-1 h-full bg-sky-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom" />
+
+            <div className="flex justify-between items-start gap-4">
+              <div className="space-y-3">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-sky-600 transition-colors flex items-center gap-2">
+                  <span className="underline decoration-2 decoration-transparent group-hover:decoration-sky-200 underline-offset-4 transition-all">
+                    {item.heading}
+                  </span>
+                  <ExternalLink size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sky-400" />
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-            )}
-            <h4 className={`text-sm font-bold uppercase tracking-wider mb-2 ${plan.highlighted ? 'text-gray-400' : 'text-gray-500'}`}>{plan.name}</h4>
-            <div className="flex items-baseline gap-1 mb-4">
-              <span className="text-4xl font-display font-bold">{plan.price}</span>
-              {plan.period && <span className={`text-sm ${plan.highlighted ? 'text-gray-400' : 'text-gray-500'}`}>/{plan.period}</span>}
+
+              <div className="w-8 h-8 rounded-full bg-sky-50 flex items-center justify-center text-sky-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                <ArrowRight size={16} className="-rotate-45" />
+              </div>
             </div>
-            <p className={`text-xs mb-6 leading-relaxed ${plan.highlighted ? 'text-gray-400' : 'text-gray-500'}`}>
-              {plan.description}
-            </p>
-            <div className="space-y-3 mb-8">
-              {plan.features.map((feature, f) => (
-                <div key={f} className="flex items-start gap-2 text-sm">
-                  <Check size={16} className={`shrink-0 mt-0.5 ${plan.highlighted ? 'text-green-400' : 'text-blue-600'}`} />
-                  <span className={plan.highlighted ? 'text-gray-300' : 'text-gray-600'}>{feature}</span>
-                </div>
-              ))}
-            </div>
-            <button className={`w-full py-3 rounded-xl font-bold text-sm transition-colors ${plan.highlighted
-                ? 'bg-white text-black hover:bg-gray-200'
-                : 'bg-black text-white hover:bg-gray-800'
-              }`}>
-              Get Started
-            </button>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -204,7 +272,8 @@ const ToolDetailPage = () => {
     </div>
   );
 
-  const videoId = getYoutubeEmbed(tool.youtubeVideoUrl);
+
+  const videoId = getYoutubeEmbed(tool.ytVideoLink);
 
   return (
     <div className="w-full min-h-screen bg-[#f8f9fa] font-sans selection:bg-blue-100 selection:text-blue-900">
@@ -241,7 +310,13 @@ const ToolDetailPage = () => {
 
                 <div className="relative z-10">
                   <div className="w-24 h-24 bg-white rounded-2xl border border-gray-100 flex items-center justify-center p-4 mb-6 shadow-sm">
-                    <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
+                    {tool.logo ? (
+                      <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-xl text-gray-300 font-bold text-2xl">
+                        {tool.name.charAt(0)}
+                      </div>
+                    )}
                   </div>
 
                   <h1 className="text-4xl font-display font-extrabold text-gray-900 mb-3 tracking-tight">{tool.name}</h1>
@@ -269,13 +344,13 @@ const ToolDetailPage = () => {
                     </a>
 
                     <div className="flex gap-3">
-                      {tool.linkedinLink && (
-                        <a href={tool.linkedinLink} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all">
+                      {tool.linkedInLink && (
+                        <a href={tool.linkedInLink} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all">
                           <Linkedin size={18} /> LinkedIn
                         </a>
                       )}
-                      {tool.youtubeChannel && (
-                        <a href={tool.youtubeChannel} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
+                      {tool.youTubeChannelLink && (
+                        <a href={tool.youTubeChannelLink} target="_blank" rel="noopener noreferrer" className="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
                           <Youtube size={18} /> Channel
                         </a>
                       )}
@@ -295,7 +370,17 @@ const ToolDetailPage = () => {
                   <div className="flex items-center gap-2 text-gray-400 mb-2">
                     <Users size={16} /> <span className="text-[10px] font-bold uppercase tracking-wider">Target Organization</span>
                   </div>
-                  <div className="font-medium text-gray-900">{tool.organizationType || 'Various'}</div>
+                  <div className="flex flex-wrap gap-2">
+                    {Array.isArray(tool.organizationType) ? (
+                      tool.organizationType.map((org, i) => (
+                        <span key={i} className="px-3 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold uppercase tracking-wide text-gray-600">
+                          {org}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-900 font-medium">{tool.organizationType || 'Various'}</span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="h-px bg-gray-50" />
@@ -338,7 +423,7 @@ const ToolDetailPage = () => {
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10" />
                 <iframe
                   className="w-full h-full relative z-0"
-                  src={`https://www.youtube.com/embed/${videoId}`}
+                  src={`https://www.youtube.com/embed/${videoId}?origin=${window.location.origin}`}
                   title="Tool Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -392,9 +477,21 @@ const ToolDetailPage = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-4">Who is this for?</h3>
-                  <p className="text-blue-100 text-lg leading-relaxed font-light">
+                  <p className="text-blue-100 text-lg leading-relaxed font-light mb-6">
                     {tool.idealCustomerProfile}
                   </p>
+
+                  {/* Tag Cloud in ICP Section */}
+                  {Array.isArray(tool.organizationType) && tool.organizationType.length > 0 && (
+                    <div className="flex flex-wrap gap-2 border-t border-white/10 pt-6">
+                      <span className="text-xs font-bold uppercase tracking-wider text-blue-200 py-1.5 mr-2">Best Suited For:</span>
+                      {tool.organizationType.map((org, i) => (
+                        <span key={i} className="px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/10 rounded-lg text-xs font-bold uppercase tracking-wide text-white">
+                          {org}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -405,8 +502,83 @@ const ToolDetailPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <PricingSection />
+              <PricingSection plans={tool.plans} />
             </motion.div>
+
+            {/* 6. Pro Tips Section (Alternative Design: Light Grid) */}
+            {tool.proTips && tool.proTips.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="space-y-6"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <Star size={20} className="fill-indigo-600" />
+                  </div>
+                  <h2 className="text-2xl font-display font-bold text-gray-900">Expert Pro Tips</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {tool.proTips.map((tip, i) => (
+                    <div
+                      key={i}
+                      className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                    >
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-50 to-transparent rounded-bl-full opacity-50 transition-opacity group-hover:opacity-100" />
+
+                      <div className="relative z-10 flex gap-4">
+                        <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 font-bold text-sm">
+                          {i + 1}
+                        </span>
+                        <p className="text-gray-600 leading-relaxed font-medium">
+                          {tip}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* CTA Card Integrated in Grid */}
+                  <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-8 rounded-2xl shadow-xl shadow-indigo-200 text-white flex flex-col justify-between relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10" />
+
+                    <div className="relative z-10">
+                      <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-4">
+                        <Zap size={24} className="text-white fill-white" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Need more leverage?</h3>
+                      <p className="text-indigo-100/90 text-sm mb-6 leading-relaxed">
+                        Access our full library of growth playbooks and outbound strategies.
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => navigate('/outmate-labs/tips')}
+                      className="relative z-10 w-full py-3.5 bg-white text-indigo-600 rounded-xl font-bold hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2 group-hover:gap-3"
+                    >
+                      View All Tips
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+
+
+
+            {/* 7. Learn More Section */}
+            {tool.learnMore && tool.learnMore.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <LearnMoreSection resources={tool.learnMore} />
+              </motion.div>
+            )}
 
             {/* 6. FAQs */}
             {tool.faqs && tool.faqs.length > 0 && (
@@ -432,10 +604,10 @@ const ToolDetailPage = () => {
 
           </div>
         </div>
-      </main>
+      </main >
 
       <Footer />
-    </div>
+    </div >
   );
 };
 

@@ -14,7 +14,7 @@ import './styles/testimonials.css';
 // import ServicePageTemplate from './pages/GtmSquad/ServicePageTemplate';
 // import GtmLayout from './features/gtm/layout/GtmLayout';
 // import { ThemeProvider } from './hooks/useTheme';
-// ...
+
 
 import Hero from './components/Hero';
 import Logos from './components/Logos';
@@ -27,14 +27,14 @@ import BookingScheduler from './components/BookingScheduler';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import JobsPage from './pages/JobsPage';
-import GtmPage from './pages/GtmPage';
+// import GtmPage from './pages/GtmPage';
 import N8nWorkflowsPage from './pages/N8nWorkflowsPage';
 import JobDetailPage from './pages/JobDetailPage';
-import OutboundTipsPage from './pages/OutboundTipsPage';
+// import OutboundTipsPage from './pages/OutboundTipsPage';
 // import ToolDetailPage from './pages/ToolDetailPage';
 // ✅ Import Tool Pages
-// import GtmToolsPage from './pages/GtmToolsPage';
-// import ToolDetailPage from './pages/ToolDetailPage'; // Placeholder for later
+import GtmToolsPage from './pages/GtmToolsPage';
+import ToolDetailPage from './pages/ToolDetailPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 const Home = () => (
@@ -68,9 +68,13 @@ function App() {
         <Route path="/jobs/:jobId" element={<JobDetailPage />} />
 
         {/* Outmate Labs Routes */}
-        <Route path="/outmate-labs/gtm-hub" element={<GtmPage />} />
+        {/* <Route path="/outmate-labs/gtm-hub" element={<GtmPage />} /> */}
         <Route path="/outmate-labs/workflows" element={<N8nWorkflowsPage />} />
-        <Route path="/outmate-labs/tips" element={<OutboundTipsPage />} />
+        {/* <Route path="/outmate-labs/tips" element={<OutboundTipsPage />} /> */}
+
+        {/* Tools Routes */}
+        <Route path="/outmate-labs/tools" element={<GtmToolsPage />} />
+        <Route path="/outmate-labs/tools/:slug" element={<ToolDetailPage />} />
 
         {/* ✅ GTM SQUAD ROUTES
         <Route element={<GtmLayout />}>
