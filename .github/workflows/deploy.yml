@@ -3,7 +3,7 @@ name: Deploy React App to Hostinger
 on:
   push:
     branches:
-      - main  # Change this to 'master' if your main branch is named master
+      - main # Change this to 'master' if your main branch is named master
 
 jobs:
   build-and-deploy:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       # 3. Install Dependencies
       - name: Install Dependencies
@@ -35,10 +35,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/          # The folder Vite builds to
-          server-dir: ./public_html/  # The folder Hostinger serves from
-          protocol: ftp
+          local-dir: ./dist/ # The folder Vite builds to
+          server-dir: ./public_html/ # The folder Hostinger serves from
+          protocol: ftps
           port: 21
-          # Dangerous: This deletes old files on the server to keep it clean. 
+          security: loose
+          # Dangerous: This deletes old files on the server to keep it clean.
           # Remove this line if you have other files on your server you want to keep.
           dangerous-clean-slate: true
