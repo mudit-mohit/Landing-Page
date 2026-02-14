@@ -1,5 +1,7 @@
-const API_BASE_URL = 'http://localhost:5000/api'; // Update this when deploying
+// const API_BASE_URL = 'http://localhost:5000/api'; // Update this when deploying
+const API_BASE_URL = 'https://api.outmate.ai/api';
 
+// 
 // ✅ GET WORKFLOWS
 export const getWorkflows = async (page = 1, search = '', category = '') => {
   try {

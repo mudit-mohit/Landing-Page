@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ✅ 1. Define the Base URL (Root of your API)
 // ✅ 1. Define the Base URL (Root of your API)
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://api.outmate.ai/api';
 
 // ✅ 2. Define the Talent URL (Derived from Base)
 const API_URL = `${API_BASE_URL}/talent`;
