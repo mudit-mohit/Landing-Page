@@ -45,17 +45,36 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" \
-               -e "set ssl:verify-certificate no; set ftp:ssl-protect-data true; set ftp:ssl-force true;
-                   echo '===== pwd (landing dir) ====='; pwd;
-                   echo '===== ls of landing dir ====='; cls -l;
-                   echo '===== ls / ====='; cls -l /;
-                   echo '===== ls /domains (if any) ====='; cls -l /domains || true;
-                   echo '===== ls /domains/outmate.ai (if any) ====='; cls -l /domains/outmate.ai || true;
-                   echo '===== ls /domains/outmate.ai/public_html (if any) ====='; cls -l /domains/outmate.ai/public_html || true;
-                   echo '===== ls /public_html (if any) ====='; cls -l /public_html || true;
-                   echo '===== ls /home (if any) ====='; cls -l /home || true;
-                   bye" "ftps://$FTP_SERVER" || true
+
+          cat > /tmp/lftp.cmds <<'EOF'
+          set ssl:verify-certificate no
+          set ftp:ssl-protect-data true
+          set ftp:ssl-force true
+          set ftp:passive-mode true
+          set net:max-retries 1
+          set net:timeout 20
+          echo ===== pwd (landing dir) =====
+          pwd
+          echo ===== ls landing dir =====
+          cls -la
+          echo ===== ls / =====
+          cls -la /
+          echo ===== ls /domains =====
+          cls -la /domains
+          echo ===== ls /domains/outmate.ai =====
+          cls -la /domains/outmate.ai
+          echo ===== ls /domains/outmate.ai/public_html =====
+          cls -la /domains/outmate.ai/public_html
+          echo ===== ls /public_html =====
+          cls -la /public_html
+          echo ===== ls /home =====
+          cls -la /home
+          bye
+          EOF
+
+          # Important: -u BEFORE the URL, -e (or -f) reads commands AFTER
+          # the connection is established.
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -f /tmp/lftp.cmds "ftps://$FTP_SERVER:21" || true
 
       # 7. Upload 'dist' folder to Hostinger
       #    TEMPORARILY DISABLED while diagnosing webroot path.
