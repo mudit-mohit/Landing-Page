@@ -35,18 +35,41 @@ jobs:
           echo "----- dist/index.html (head/body markers) -----"
           grep -nE "pixel|expertise|reb2b" dist/index.html || (echo "ERROR: expected snippets missing from built index.html" && exit 1)
 
-      # 6. Upload 'dist' folder to Hostinger
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/ # The folder Vite builds to
-          server-dir: ./public_html/ # The folder Hostinger serves from
-          protocol: ftps
-          port: 21
-          security: loose
-          # Dangerous: This deletes old files on the server to keep it clean.
-          # Remove this line if you have other files on your server you want to keep.
-          dangerous-clean-slate: true
+      # 6. DIAGNOSTIC: probe FTP filesystem to find the real webroot.
+      #    Lists likely Hostinger paths so we can see which directory
+      #    actually serves outmate.ai. Read the run log for the answer.
+      - name: Probe FTP filesystem for real webroot
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" \
+               -e "set ssl:verify-certificate no; set ftp:ssl-protect-data true; set ftp:ssl-force true;
+                   echo '===== pwd (landing dir) ====='; pwd;
+                   echo '===== ls of landing dir ====='; cls -l;
+                   echo '===== ls / ====='; cls -l /;
+                   echo '===== ls /domains (if any) ====='; cls -l /domains || true;
+                   echo '===== ls /domains/outmate.ai (if any) ====='; cls -l /domains/outmate.ai || true;
+                   echo '===== ls /domains/outmate.ai/public_html (if any) ====='; cls -l /domains/outmate.ai/public_html || true;
+                   echo '===== ls /public_html (if any) ====='; cls -l /public_html || true;
+                   echo '===== ls /home (if any) ====='; cls -l /home || true;
+                   bye" "ftps://$FTP_SERVER" || true
+
+      # 7. Upload 'dist' folder to Hostinger
+      #    TEMPORARILY DISABLED while diagnosing webroot path.
+      #    Re-enable once server-dir is correct, and reconsider
+      #    dangerous-clean-slate (it wipes the site before re-upload).
+      # - name: FTP Deploy
+      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      #   with:
+      #     server: ${{ secrets.FTP_SERVER }}
+      #     username: ${{ secrets.FTP_USERNAME }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     local-dir: ./dist/
+      #     server-dir: ./public_html/
+      #     protocol: ftps
+      #     port: 21
+      #     security: loose
+      #     dangerous-clean-slate: true
