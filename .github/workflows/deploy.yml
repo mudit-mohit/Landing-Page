@@ -29,65 +29,43 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # 5. Verify head snippets made it into dist/index.html
+      # 5. Verify head snippets made it into dist/index.html before upload
       - name: Verify dist/index.html contains expected snippets
         run: |
           echo "----- dist/index.html (head/body markers) -----"
           grep -nE "pixel|expertise|reb2b" dist/index.html || (echo "ERROR: expected snippets missing from built index.html" && exit 1)
 
-      # 6. DIAGNOSTIC: probe FTP filesystem to find the real webroot.
-      #    Lists likely Hostinger paths so we can see which directory
-      #    actually serves outmate.ai. Read the run log for the answer.
-      - name: Probe FTP filesystem for real webroot
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      # 6. Upload 'dist' folder to Hostinger.
+      #    server-dir is ./ because the FTP user is chrooted directly
+      #    into the webroot for outmate.ai. Uploading to ./public_html/
+      #    creates a ghost subdir inside the webroot that is never served.
+      #    dangerous-clean-slate is deliberately OFF -- with sync state
+      #    intact, only changed files upload, and a mid-deploy failure
+      #    cannot blank the live site.
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./
+          protocol: ftps
+          port: 21
+          security: loose
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            public_html/**
+            DO_NOT_UPLOAD_HERE
+
+      # 7. Verify live site now serves the expected snippets.
+      #    Fails the workflow loudly if FTP "succeeded" but the live
+      #    HTML still doesn't contain the pixel / expertise tags.
+      - name: Verify live site contains expected snippets
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-
-          cat > /tmp/lftp.cmds <<EOF
-          set ssl:verify-certificate no
-          set ftp:ssl-protect-data true
-          set ftp:ssl-force true
-          set ftp:passive-mode true
-          set net:max-retries 1
-          set net:timeout 20
-          open -u "$FTP_USERNAME","$FTP_PASSWORD" "ftp://$FTP_SERVER:21"
-          echo ===== pwd (landing dir) =====
-          pwd
-          echo ===== ls landing dir =====
-          cls -la
-          echo ===== ls / =====
-          cls -la /
-          echo ===== ls /domains =====
-          cls -la /domains
-          echo ===== ls /domains/outmate.ai =====
-          cls -la /domains/outmate.ai
-          echo ===== ls /domains/outmate.ai/public_html =====
-          cls -la /domains/outmate.ai/public_html
-          echo ===== ls /public_html =====
-          cls -la /public_html
-          echo ===== ls /home =====
-          cls -la /home
-          bye
-          EOF
-
-          lftp -f /tmp/lftp.cmds || true
-
-      # 7. Upload 'dist' folder to Hostinger
-      #    TEMPORARILY DISABLED while diagnosing webroot path.
-      #    Re-enable once server-dir is correct, and reconsider
-      #    dangerous-clean-slate (it wipes the site before re-upload).
-      # - name: FTP Deploy
-      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      #   with:
-      #     server: ${{ secrets.FTP_SERVER }}
-      #     username: ${{ secrets.FTP_USERNAME }}
-      #     password: ${{ secrets.FTP_PASSWORD }}
-      #     local-dir: ./dist/
-      #     server-dir: ./public_html/
-      #     protocol: ftps
-      #     port: 21
-      #     security: loose
-      #     dangerous-clean-slate: true
+          sleep 5
+          echo "----- curl https://outmate.ai/ -----"
+          BODY=$(curl -fsS "https://outmate.ai/?cachebust=${GITHUB_SHA}")
+          echo "$BODY" | grep -nE "pixel|expertise|reb2b" || (echo "ERROR: live site missing expected snippets after deploy" && exit 1)
