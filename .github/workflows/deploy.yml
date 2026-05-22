@@ -19,16 +19,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       # 3. Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       # 4. Build the Project (Creates the 'dist' folder)
       - name: Build Project
         run: npm run build
 
-      # 5. Upload 'dist' folder to Hostinger
+      # 5. Verify head snippets made it into dist/index.html
+      - name: Verify dist/index.html contains expected snippets
+        run: |
+          echo "----- dist/index.html (head/body markers) -----"
+          grep -nE "pixel|expertise|reb2b" dist/index.html || (echo "ERROR: expected snippets missing from built index.html" && exit 1)
+
+      # 6. Upload 'dist' folder to Hostinger
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
