@@ -53,7 +53,7 @@ jobs:
           set ftp:passive-mode true
           set net:max-retries 1
           set net:timeout 20
-          open -u "$FTP_USERNAME","$FTP_PASSWORD" "ftps://$FTP_SERVER:21"
+          open -u "$FTP_USERNAME","$FTP_PASSWORD" "ftp://$FTP_SERVER:21"
           echo ===== pwd (landing dir) =====
           pwd
           echo ===== ls landing dir =====
