@@ -57,10 +57,15 @@ jobs:
           set ftp:ssl-protect-data true
           set ftp:ssl-force true
           set ftp:passive-mode true
-          set net:max-retries 2
-          set net:timeout 30
+          set ftp:use-pasv-ip false
+          set net:max-retries 3
+          set net:timeout 120
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-multiplier 1
+          set xfer:timeout 300
+          set mirror:parallel-transfer-count 1
           open -u "$FTP_USERNAME","$FTP_PASSWORD" "ftp://$FTP_SERVER:21"
-          mirror -R --verbose \
+          mirror -R --verbose --continue \
             --exclude-glob .git* \
             --exclude-glob node_modules/ \
             --exclude public_html/ \
